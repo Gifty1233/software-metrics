@@ -10,6 +10,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # ✅ Install Java
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # ✅ Compile your Java code
+      - name: Compile Java
+        run: |
+          find . -name "*.java" > sources.txt
+          javac @sources.txt
+
+      # ✅ Run SonarCloud scan
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
